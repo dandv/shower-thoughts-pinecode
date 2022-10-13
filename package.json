@@ -1,0 +1,47 @@
+{
+  "name": "shower-thoughts-pinecone",
+  "version": "1.0.0",
+  "description": "Shower thoughts Pinecone demo app",
+  "author": "Dan Dascalescu",
+  "type": "module",
+  "config": {
+    "nodeParams": "--experimental-specifier-resolution=node --loader=ts-node/esm"
+  },
+  "scripts": {
+    "reddit": "node $npm_package_config_nodeParams reddit.ts",
+    "vectorize": "node $npm_package_config_nodeParams vectorize.ts",
+    "insert": "node $npm_package_config_nodeParams insert.ts",
+    "server": "node $npm_package_config_nodeParams server.ts",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dandv/shower-thoughts-pinecone-demo.git"
+  },
+  "keywords": [
+    "vector",
+    "search",
+    "pinecone"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dandv/shower-thoughts-pinecone/issues"
+  },
+  "homepage": "https://github.com/dandv/shower-thoughts-pinecone#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "node-fetch": "^3.2.10",
+    "openai": "^3.0.0",
+    "parcel": "^2.7.0",
+    "pinecone-io": "^1.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "eslint": "^8.24.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  }
+}

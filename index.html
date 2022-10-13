@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shower Thoughts Pinecone Demo</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<h1>Shower thoughts Pinecone demo</h1>
+<div>
+    <p>
+        I <a href="https://www.youtube.com/watch?v=FwD7Av2lsnE">love shower thoughts</a> so I made this semantic search engine for <a href="https://reddit.com/r/showerthoughts">shower thoughts</a> on a given topic (e.g. <code>cats</code>). Try it out below!
+    </p>
+    <p>
+        It's built using the <a href="https://pinecone.io">Pinecone</a> vector database. Here's <a href="https://github.com/dandv/shower-thoughts-pinecode">the source</a>.
+    </p>
+</div>
+<form id="search">
+    <label>
+        <em>Fun topics to search for: cats, internet, battery, garbage, search, machine learning, ...</em>
+        <input type="text" name="topic" placeholder="cats / internet / battery / ..." autofocus />
+    </label>
+
+    <button type="submit">Search</button>
+</form>
+<ul id="shower-thoughts">
+    <!-- shower thoughts go here -->
+</ul>
+<script type="module">
+    const list = document.querySelector('#shower-thoughts');
+
+    // Create a shower thought element
+    function createSt(st) {
+      const li = document.createElement('li');
+      li.innerHTML = `${st.text} (<a href="${st.url}" target="_blank">${st.upvotes}</a>)`;
+      return li;
+    }
+
+    function search(event) {
+      event.preventDefault();
+      list.innerHTML = '';  // clear the list
+      const topic = this['topic'].value;
+
+      const url = new URL(process.env.SERVER_URL || 'http://localhost:4000/search');
+      const params = url.searchParams;
+      params.append('q', topic);
+
+      fetch(url)
+          .then(response => response.json())
+          .then(data => {
+              for (const st of data)
+                  list.appendChild(createSt(st));
+          });
+    }
+    document.querySelector('#search').onsubmit = search;
+</script>
+</body>
+</html>
